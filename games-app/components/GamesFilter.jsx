@@ -1,101 +1,123 @@
 import { useRef, useState } from "react";
-export default function GamesFilter({genres, publishers,onFilterChange}) {
+
+export default function GamesFilter({ genres, publishers, platforms, onFilterChange }) {
     const [title, setTitle] = useState("");
     const [genre, setGenre] = useState("");
-    const [publisher, setPublisher] = useState("")
+    const [publisher, setPublisher] = useState("");
+    const [platform, setPlatform] = useState("");
 
     const titleRef = useRef();
     const genreRef = useRef();
     const publisherRef = useRef();
+    const platformRef = useRef();
 
-
-    function handleTitleSearch(e) {
-        const titleText = e.target.value;
+    function handleTitleSearch() {
+        const titleText = titleRef.current.value;
         setTitle(titleText);
         applyFilters();
     }
 
-    function handleGenreChange(e) {
-        const genreText = e.target.value;
+    function handleGenreChange() {
+        const genreText = genreRef.current.value;
         setGenre(genreText);
         applyFilters();
     }
 
-    function handlePublisherChange(e) {
-        const publisherText = e.target.value;
+    function handlePublisherChange() {
+        const publisherText = publisherRef.current.value;
         setPublisher(publisherText);
         applyFilters();
     }
 
-    function applyFilters() {
-        let title = titleRef.current.value
-        let genre = genreRef.current.value
-        // let publisher = publisherRef.current.value
-        onFilterChange(title, genre, publisher);
-    }
-
-    function resetFilterContorls(){
-        setTitle("")
-        setGenre("")
-        setPublisher("")
-        genreRef.current.value = ""
-        titleRef.current.value = ""
-        publisherRef.current.value = ""
-    }
-
-    function removeFilters() {
-        resetFilterContorls();
+    function handlePlatformChange() {
+        const platformText = platformRef.current.value;
+        setPlatform(platformText);
         applyFilters();
     }
 
-    let genreOptionJsx = genres.map(genre=>{
-        return (
-                <option value={genre}>{genre}</option>
-            )  
-        });
-    
-    genreOptionJsx.unshift(<option value="">ALL</option>)
+    function applyFilters() {
+        const title = titleRef.current.value;
+        const genre = genreRef.current.value;
+        const publisher = publisherRef.current.value;
+        const platform = platformRef.current.value;
+        onFilterChange(title, genre, publisher, platform);
+    }
 
+    function resetFilterControls() {
+        setTitle("");
+        setGenre("");
+        setPublisher("");
+        setPlatform("");
+        titleRef.current.value = "";
+        genreRef.current.value = "";
+        publisherRef.current.value = "";
+        platformRef.current.value = "";
+    }
 
-
-    // let publisherOptionJsx = publishers.map(publisher=>{
-    //     return (
-    //             <option value={publisher}>{publisher}</option>
-    //         )  
-    //     });
-    
-    // publisherOptionJsx.unshift(<option value="">ALL</option>)
-
+    function removeFilters() {
+        resetFilterControls();
+        applyFilters();
+    }
 
     return (
         <>
             <div>
-                <input 
+                <input
                     type="text"
                     ref={titleRef}
                     className="game-search-box"
-                    value={title} 
-                    onChange={(e)=> {handleTitleSearch(e)}} 
-                    placeholder="Enter a title">
-                </input>
-                <button onClick={()=>{removeFilters()}}>Remove filters</button>
+                    value={title}
+                    onChange={handleTitleSearch}
+                    placeholder="Enter a title"
+                />
+                <button onClick={removeFilters}>Remove filters</button>
             </div>
+
             <div>
-                Filters:
-                <select 
+                <span>Filters:</span>
+
+                {/* Genre dropdown list */}
+                <select
                     ref={genreRef}
-                    onChange={(e)=> {handleGenreChange(e)}}>
-                    {genreOptionJsx}
+                    onChange={handleGenreChange}
+                    className="genre-dropdown"
+                >
+                    <option value="">All Genres</option>
+                    {genres.map((genre) => (
+                        <option key={genre} value={genre}>
+                            {genre}
+                        </option>
+                    ))}
+                </select>
+
+                {/* Platform dropdown list */}
+                <select
+                    ref={platformRef}
+                    onChange={handlePlatformChange}
+                    className="platform-dropdown"
+                >
+                    <option value="">All platforms</option>
+                    {platforms.map((platform) => (
+                        <option key={platform} value={platform}>
+                            {platform}
+                        </option>
+                    ))}
+                </select>
+
+                {/* Publisher dropdown list */}
+                <select
+                    ref={publisherRef}
+                    onChange={handlePublisherChange}
+                    className="publisher-dropdown"
+                >
+                    <option value="">All publishers</option>
+                    {publishers.map((publisher) => (
+                        <option key={publisher} value={publisher}>
+                            {publisher}
+                        </option>
+                    ))}
                 </select>
             </div>
-            {/* <div>
-                Filters:
-                <select 
-                    ref={publisherRef}
-                    onChange={(e)=> {handlePublisherChange(e)}}>
-                    {publisherOptionJsx}
-                </select>
-            </div> */}
         </>
     );
 }

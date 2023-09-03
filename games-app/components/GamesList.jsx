@@ -8,8 +8,10 @@ export default function GamesList() {
     const [games, setGames] = useState([]);
     const [allGames, setAllGames] = useState([]);
     const [genres, setGenres] = useState([]);
+    const [platforms, setPlatforms] = useState([]);
+    const [publishers, setPublishers] = useState([]);
     const [errorMessage,setErrorMessage] = useState(null);
-    const [publishers, setPublishers] = useState(null);
+
 
 
     useEffect(
@@ -19,6 +21,7 @@ export default function GamesList() {
                 setGames(gamesJsonData);
                 setAllGames(gamesJsonData);
                 setGenres(getUniqueGenresList(gamesJsonData))
+                setPlatforms(getUniquePlatformsList(gamesJsonData))
                 setPublishers(getUniquePublisherList(gamesJsonData))
             })
             .catch(error=>{
@@ -27,27 +30,34 @@ export default function GamesList() {
         },
         []);
 
+    const getUniqueGenresList = function (games) {
+        const allGenresList = games.map(game=>game.genre);
+        const uniqueGenresList = [...new Set(allGenresList)];
+        return uniqueGenresList;
+    }
+
+
     const getUniquePublisherList = function (games) {
         const allPublisherList = games.map(game=>game.publisher);
         const uniquePublishersList = [...new Set(allPublisherList)]
         console.log(uniquePublishersList)
         return uniquePublishersList
-    }    
-    
-    const getUniqueGenresList = function (games) {
-        const allGenresList = games.map(game=>game.genre);
-        const uniqueGenresList = [...new Set(allGenresList)]
-        console.log(uniqueGenresList)
-        return uniqueGenresList
     }
 
-    const applyFilters = function(title, genre, publisher){
-        let filteredGames = allGames.filter(game => 
-            game.title.toLowerCase().includes(title.toLowerCase()) && 
-            (genre == "" || game.genre.includes(genre)) &&
-            (publisher == "" || game.publisher.includes(publishers)) 
-            // other filters
-            );
+    const getUniquePlatformsList = function (games) {
+        const allPlatformsList = games.map(game=>game.platform);
+        const uniquePlatformsList = [...new Set(allPlatformsList)];
+        console.log(uniquePlatformsList)
+        return uniquePlatformsList;
+    }
+
+    const applyFilters = function(title, genre, publisher,platform){
+        let filteredGames = allGames.filter(game =>
+                (game.title.toLowerCase().includes(title.toLowerCase())) &&
+                (genre === "" || game.genre.includes(genre)) &&
+                (publisher === "" || game.publisher.includes(publisher)) &&
+                (platform === "" || game.platform.includes(platform))
+        );
             setGames(filteredGames)
     }
 
@@ -96,6 +106,7 @@ export default function GamesList() {
             <GamesFilter 
                 genres = {genres}
                 publishers={publishers}
+                platforms={platforms}
                 onFilterChange={applyFilters}>
             </GamesFilter>}
             <div className="games-list-container">
