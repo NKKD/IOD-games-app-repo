@@ -1,6 +1,6 @@
 import { useEffect,useState} from "react";
-import GamesService from "../src/services/games-service";
-import GamesFilter from "./GamesFilter";
+import GamesService from "../services/games-service.js";
+import GamesFilter from "./GamesFilter.jsx";
 
 const gamesService = new GamesService("http://localhost:3000")
 

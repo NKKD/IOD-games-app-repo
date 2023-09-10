@@ -1,3 +1,8 @@
+#root {
+    --bg-color: white;
+    --text-color: black;
+}
+
 .games-list-container {
     width: 1200px;
     text-align: left;
@@ -8,4 +13,16 @@
     padding: 10px;
     margin-bottom: 10px;
     font-weight: bolder;
+}
+
+/* dark theme */
+[data-theme='dark'] {
+    --bg-color: black;
+    --text-color: white;
+}
+
+/* usage in other CSS rules */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }

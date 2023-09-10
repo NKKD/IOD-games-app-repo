@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import ToggleThemeButton from "./ToggleTheme.jsx";
 
 export default function GamesFilter({ genres, publishers, platforms, onFilterChange }) {
     const [title, setTitle] = useState("");
@@ -71,6 +72,7 @@ export default function GamesFilter({ genres, publishers, platforms, onFilterCha
                     placeholder="Enter a title"
                 />
                 <button onClick={removeFilters}>Remove filters</button>
+                <ToggleThemeButton />
             </div>
 
             <div>
