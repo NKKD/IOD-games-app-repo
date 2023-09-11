@@ -3,17 +3,31 @@
     --text-color: black;
 }
 
-.games-list-container {
-    width: 1200px;
-    text-align: left;
+/* Login form CSS style*/
+
+.card-title{
+    text-align: center;
+    font-size: 2.5rem;
+    color: dodgerblue;
+    margin-bottom: 30px;
 }
 
-.game-search-box {
-    width:600px;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-weight: bolder;
+.form-group{
+    margin-top: 5px;
 }
+
+.login-button {
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.toggle-button {
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+}
+
 
 /* dark theme */
 [data-theme='dark'] {
@@ -21,7 +35,6 @@
     --text-color: white;
 }
 
-/* usage in other CSS rules */
 body {
     background-color: var(--bg-color);
     color: var(--text-color);

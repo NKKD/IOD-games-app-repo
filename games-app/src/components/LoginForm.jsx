@@ -3,8 +3,10 @@ import { useUserContext } from "../context/UserContext";
 import { useThemeContext } from "../context/ThemeContext";
 import GamesList from "./GamesList.jsx";
 import ToggleThemeButton from "./ToggleTheme.jsx";
+import "../css/games-app.css";
+
 export default function LoginForm() {
-    const [userEmail, setUserEmail] = useState('test');
+    const [userEmail, setUserEmail] = useState('test@test.com');
     const [userPassword, setUserPassword] = useState('test1');
     const [submitResult, setSubmitResult] = useState('');
 
@@ -17,7 +19,7 @@ export default function LoginForm() {
             setSubmitResult('Password must be at least 1 chars long');
         } else if (userPassword === userEmail) {
             setSubmitResult('Password must not match email address');
-        } else if(userEmail === "test" && userPassword === "test1") {
+        } else if(userEmail == "test@test.com" && userPassword == "test1") {
             /*the hardcoded userEmail and userPassword values are for demo purpose only. Never hardcode username/passwords in real apps*/
             setSubmitResult('Successful login.');
             handleUpdateUser({ email: userEmail }); // context function
@@ -35,15 +37,47 @@ export default function LoginForm() {
     }
 
     let loginFormJsx = (
-        <div>
-            <h1>Sign in</h1>
-            <input type="email" defaultValue="test" onChange={(e)=>{setUserEmail(e.target.value)}} /> <br/>
-            <input type="password" defaultValue="test1" onChange={(e)=>{setUserPassword(e.target.value)}} /> <br/>
-            <button onClick={(e) => handleLoginFormSubmit(e)}>Sign in</button>
-            <br/>
-            <span>{submitResult}</span>
-            <ToggleThemeButton />
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div>
+                        <div className="card-body body">
+                            <h1 className="card-title">Welcome to games app</h1>
+                            <form onSubmit={(e) => handleLoginFormSubmit(e)}>
+                                <div className="form-group">
+                                    <label>Email:</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        defaultValue="test@test.com"
+                                        onChange={(e) => setUserEmail(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>Password:</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        defaultValue="test1"
+                                        onChange={(e) => setUserPassword(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <button type="submit" className="login-button btn btn-primary">Sign in</button>
+                                </div>
+                                <div className="form-group">
+                                    <span>{submitResult}</span>
+                                </div>
+                            </form>
+                            <div className="mt-3">
+                                <ToggleThemeButton />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     );
 
     if (isUserLoggedIn())

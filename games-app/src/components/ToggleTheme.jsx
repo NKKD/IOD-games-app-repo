@@ -1,6 +1,7 @@
 // ToggleThemeButton.js
 import React from 'react';
 import { useThemeContext } from '../context/ThemeContext';
+import "../css/games-app.css";
 
 const ToggleThemeButton = () => {
     const { currentTheme, handleUpdateTheme, checkCurrentTheme } = useThemeContext();
@@ -15,7 +16,7 @@ const ToggleThemeButton = () => {
     };
 
     return (
-        <button onClick={toggleTheme}>Toggle Theme</button>
+        <button type="button" className="btn btn-secondary toggle-button" onClick={toggleTheme}>Toggle Theme</button>
     );
 }
 

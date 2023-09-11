@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import ToggleThemeButton from "./ToggleTheme.jsx";
+import '../css/games-filter.css'
 
 export default function GamesFilter({ genres, publishers, platforms, onFilterChange }) {
     const [title, setTitle] = useState("");
@@ -61,8 +62,14 @@ export default function GamesFilter({ genres, publishers, platforms, onFilterCha
     }
 
     return (
-        <>
-            <div>
+        <div className="row justify-content-center filter-container">
+            <span style={{
+                width: '20%',
+                margin: 0,
+            }}>
+                <ToggleThemeButton />
+            </span>
+            <div className="col-md-8">
                 <input
                     type="text"
                     ref={titleRef}
@@ -71,18 +78,17 @@ export default function GamesFilter({ genres, publishers, platforms, onFilterCha
                     onChange={handleTitleSearch}
                     placeholder="Enter a title"
                 />
-                <button onClick={removeFilters}>Remove filters</button>
-                <ToggleThemeButton />
+                <button className="remove-button" onClick={removeFilters}>Remove filters</button>
             </div>
 
-            <div>
-                <span>Filters:</span>
+            <div className="col-md-8">
+                <span className="filter-text">Filters:</span>
 
                 {/* Genre dropdown list */}
                 <select
                     ref={genreRef}
                     onChange={handleGenreChange}
-                    className="genre-dropdown"
+                    className="dropdown genre-dropdown"
                 >
                     <option value="">All Genres</option>
                     {genres.map((genre) => (
@@ -96,7 +102,7 @@ export default function GamesFilter({ genres, publishers, platforms, onFilterCha
                 <select
                     ref={platformRef}
                     onChange={handlePlatformChange}
-                    className="platform-dropdown"
+                    className="dropdown platform-dropdown"
                 >
                     <option value="">All platforms</option>
                     {platforms.map((platform) => (
@@ -110,7 +116,7 @@ export default function GamesFilter({ genres, publishers, platforms, onFilterCha
                 <select
                     ref={publisherRef}
                     onChange={handlePublisherChange}
-                    className="publisher-dropdown"
+                    className="dropdown publisher-dropdown"
                 >
                     <option value="">All publishers</option>
                     {publishers.map((publisher) => (
@@ -120,6 +126,6 @@ export default function GamesFilter({ genres, publishers, platforms, onFilterCha
                     ))}
                 </select>
             </div>
-        </>
+        </div>
     );
 }

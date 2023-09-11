@@ -1,0 +1,14 @@
+.games-list-container{
+    padding-top: 120px;
+}
+
+.game-list-component{
+    border: 1px solid darkslategrey;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+}
+
+.card-title{
+    font-size: 1.5rem;
+}
